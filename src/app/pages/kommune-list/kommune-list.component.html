@@ -1,0 +1,65 @@
+
+<!-- <app-kommune-navn></app-kommune-navn> -->
+
+<h1>
+  <!-- {{ kommuner$ | async | take : 5 | navnOgKode }} -->
+  Kommuner
+</h1>
+
+<!-- <input type="search" [(ngModel)]="searchTerm" /> -->
+<mat-form-field class="example-form-field">
+  <mat-label>Søg</mat-label>
+  <input matInput type="text" [(ngModel)]="searchTerm" />
+  <button
+    *ngIf="searchTerm"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="searchTerm = ''"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<!-- <ul>
+  <li *ngFor="let kom of kommuner$ | async | filter:searchTerm">
+    <div [appUnderline]="kom">
+      {{ kom | navnOgKode }} -->
+<!-- {{ kom.navn }}
+      ({{ kom.kode }}) -->
+<!-- </div>
+  </li>
+</ul> -->
+
+<div *ngIf="kommuner$ | async | filter: searchTerm as komList">
+  <table mat-table [dataSource]="komList" class="mat-elevation-z8">
+
+    <!-- Kode kolonne -->
+    <ng-container matColumnDef="kode">
+      <th mat-header-cell *matHeaderCellDef>Kode</th>
+      <td mat-cell *matCellDef="let element">{{ element.kode }}</td>
+    </ng-container>
+
+    <!-- Navn kolonne -->
+    <ng-container matColumnDef="navn">
+      <th mat-header-cell *matHeaderCellDef>Navn</th>
+      <td mat-cell *matCellDef="let element">{{ element.navn }}</td>
+    </ng-container>
+
+    <!-- Details kolonne -->
+    <ng-container matColumnDef="detaljer">
+      <th mat-header-cell *matHeaderCellDef>Detaljer</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-button
+          [routerLink]="'/kommuner/' + element.kode"
+        >
+          Vis detaljer
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
