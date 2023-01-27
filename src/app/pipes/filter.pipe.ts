@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Kommune } from '../models/kommune';
 
-export type Region = { kode: string, navn: string };
 interface INavnOgKode {
   kode: string;
   navn: string;

@@ -1,0 +1,60 @@
+<form
+  #formElem="ngForm"
+  (ngSubmit)="save($event)"
+  *ngIf="region"
+  [formGroup]="form"
+>
+  <mat-form-field>
+    <mat-label>Kode</mat-label>
+    <input matInput name="kode" formControlName="kode" />
+    <mat-error
+      *ngIf="
+        (formElem.submitted || form.get('kode')?.touched) &&
+        form.get('kode')?.invalid
+      "
+    >
+      <div *ngIf="form.get('kode')?.hasError('required')">
+        Region kode er påkrævet
+      </div>
+      <div
+        *ngIf="
+          form.get('kode')?.hasError('minlength') ||
+          form.get('kode')?.hasError('maxlength')
+        "
+      >
+        Region kode skal være 4 tegn
+      </div>
+      <div *ngIf="form.get('kode')?.hasError('prefixedwithzero')">
+        En regions kode skal starte med 1
+      </div>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Navn</mat-label>
+    <input matInput name="navn" formControlName="navn" />
+    <mat-error
+      *ngIf="
+        (formElem.submitted ||  form.get('navn')?.touched) &&
+        form.get('navn')?.invalid
+      "
+    >
+      <div *ngIf="form.get('navn')?.hasError('required')">
+        Region navn er påkrævet
+      </div>
+      <div
+        *ngIf="
+          form.get('navn')?.hasError('minlength') ||
+          form.get('navn')?.hasError('maxlength')
+        "
+      >
+        Region navn skal være 4 tegn
+      </div>
+      <div *ngIf="form.get('navn')?.hasError('prefixedwithzero')">
+        En regions navn skal starte med 1
+      </div>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-button>Opret region</button>
+</form>

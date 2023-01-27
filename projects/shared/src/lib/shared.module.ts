@@ -12,7 +12,8 @@ import { WelcomeMessageComponent } from './components/welcome-message/welcome-me
   imports: [
   ],
   exports: [
-    SharedComponent
+    SharedComponent,
+    WelcomeMessageComponent
   ]
 })
 export class SharedModule { }

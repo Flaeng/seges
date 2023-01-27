@@ -1,0 +1,61 @@
+<form ngForm #form="ngForm" (ngSubmit)="save($event)" *ngIf="kommune">
+  <mat-form-field>
+    <mat-label>Kode</mat-label>
+    <input
+      name="kode"
+      matInput
+      [(ngModel)]="kommune.kode"
+      #kodeInput="ngModel"
+      required
+      minlength="4"
+      maxlength="4"
+      appPrefixWithZero="0"
+    />
+    <mat-error
+      *ngIf="(form.submitted || kodeInput.touched) && kodeInput.invalid && kodeInput.errors"
+    >
+      <div *ngIf="kodeInput.errors['required']">
+        Du mangler at indtaste en kommune kode
+      </div>
+      <div
+        *ngIf="kodeInput.errors['minlength'] || kodeInput.errors['maxlength']"
+      >
+        En kommune kode er altid 4 tegn
+      </div>
+      <div *ngIf="kodeInput.errors['prefixedwithzero']">
+        En kommune kode skal starte med 0
+      </div>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Navn</mat-label>
+    <input
+      name="navn"
+      matInput
+      [(ngModel)]="kommune.navn"
+      #navnInput="ngModel"
+      required
+      minlength="2"
+      maxlength="20"
+    />
+    <mat-error
+      *ngIf="(form.submitted || navnInput.touched)
+        && navnInput.invalid && navnInput.errors"
+    >
+      <div *ngIf="navnInput.errors['required']">
+        Du mangler at indtaste et kommune navn
+      </div>
+      <div *ngIf="navnInput.errors['minlength'] as validationRule">
+        Kommune navn skal være {{ validationRule.requiredLength }}
+        tegn eller flere
+      </div>
+      <div *ngIf="navnInput.errors['maxlength']">
+        Kommune navn skal være
+        {{ navnInput.errors["maxlength"].requiredLength }} tegn eller færre
+      </div>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-button type="submit">Opret kommune</button>
+</form>
